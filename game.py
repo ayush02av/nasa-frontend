@@ -1,3 +1,4 @@
+import datetime
 import pygame  
 import random
 from sprites import sprites
@@ -53,6 +54,9 @@ def game(character):
     bg_img_url = 'water_blue'
     done = False
     deductPoints = 2
+
+    show_chlorine = None
+    
     while not done:
         screen.fill(bg)
 
@@ -69,6 +73,13 @@ def game(character):
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, 60)
         screen.blit(text, textRect)
+
+        if show_chlorine:
+            chlorine = pygame.image.load("assets/chlorine.png")
+            chlorine = pygame.transform.scale(chlorine, (50, 100))
+            screen.blit(chlorine.convert(), (0, 0))
+            if (datetime.datetime.now() - show_chlorine).total_seconds() > 3:
+                show_chlorine = None
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -121,6 +132,7 @@ def game(character):
                 if player.threshold == 3:
                     ALGAE_DRAWN = False
                     player.threshold = 0
+                    show_chlorine = datetime.datetime.now()
                 
                 player.health += 1
                 player.score += 1
