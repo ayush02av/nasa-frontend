@@ -12,9 +12,13 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.center = pos
 
 class Player(Sprite):
-    sprite_image = 'assets/fish.png'
 
-    def __init__(self):
+    def __init__(self, character):
+        if character == 0:
+            self.sprite_image = 'assets/gold_fish.png'
+        elif character == 1:
+            self.sprite_image = 'assets/cat_fish.png'
+        
         self.pos = [170, 500]
         super().__init__(self.pos)
         # self.vx = 2.5
