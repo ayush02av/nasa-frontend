@@ -23,7 +23,7 @@ player_group = pygame.sprite.Group()
 player_group.add(player)
 
 shrimp_group = pygame.sprite.Group()
-for i in range(5):
+for i in range(10):
     shrimp_group.add(sprites.Shrimp())
 
 while not done:
@@ -35,12 +35,8 @@ while not done:
             done = True
 
     key = pygame.key.get_pressed()
-
-    for i in range(2):
-        if key[player.move[i]]:
-            player.rect.x += player.vx * [-1, 1][i]
   
-    for i in range(2):  
+    for i in range(2):
         if key[player.move[2:4][i]]:  
             player.rect.y += player.vy * [-1, 1][i]
     
@@ -50,10 +46,20 @@ while not done:
     for shrimp in shrimp_group:
         shrimp.rect.x -= shrimp.vx * 1
 
+        if shrimp.rect.colliderect(player.rect):
+            shrimp.rect.x = SCREEN_WIDTH
+            shrimp.rect.y = random.randint(300, 700)
+            shrimp.vx = random.randint(3, 8)
+
         if shrimp.rect.x <= 0:
             shrimp.rect.x = SCREEN_WIDTH
             shrimp.rect.y = random.randint(300, 700)
-            shrimp.vx = random.randint(1, 5)
+            shrimp.vx = random.randint(3, 8)
+    
+    if player.rect.x <= 0:
+        player.rect.x = SCREEN_WIDTH
+    elif player.rect.x >= SCREEN_WIDTH:
+        player.rect.x = 0
     
     pygame.display.update()
     clock.tick(fps)

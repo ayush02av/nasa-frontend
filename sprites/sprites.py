@@ -17,11 +17,11 @@ class Player(Sprite):
     def __init__(self):
         self.pos = [170, 500]
         super().__init__(self.pos)
-        self.vx = 2.5
-        self.vy = 1
+        # self.vx = 2.5
+        self.vy = 3
 
         self.image = pygame.image.load(self.sprite_image).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (150, 100))
+        self.image = pygame.transform.scale(self.image, (120, 80))
         
         self.rect = self.image.get_rect(center = self.pos)
 
@@ -32,10 +32,10 @@ class Shrimp(Sprite):
     def __init__(self):
         self.pos = [random.randint(200, 900), random.randint(300, 700)]
         super().__init__(self.pos)
-        self.vx = random.randint(1, 5)
+        self.vx = random.randint(3, 8)
         self.vy = 1
 
         self.image = pygame.image.load(self.sprite_image).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (50, 25))
+        self.image = pygame.transform.scale(self.image, (40, 20))
         
         self.rect = self.image.get_rect(center = self.pos)
