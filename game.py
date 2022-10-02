@@ -52,6 +52,7 @@ def game(character):
 
     bg_img_url = 'water_blue'
     done = False
+    deductPoints = 2
     while not done:
         screen.fill(bg)
 
@@ -92,7 +93,7 @@ def game(character):
 
         if ALGAE_DRAWN:
             bg_img_url = 'water_green'
-
+            deductPoints = 3
             text = font.render(f"Shrimps Needed to Remove Algae: {3 - player.threshold}", True, green, blue)
             textRect = text.get_rect()
             textRect.center = (SCREEN_WIDTH // 2, 100)
@@ -100,6 +101,7 @@ def game(character):
             
         else:
             bg_img_url = 'water_blue'
+            deductPoints = 2
 
         for bubble in bubble_group:
             bubble.rect.x -= bubble.vx * 1
@@ -120,7 +122,7 @@ def game(character):
                     ALGAE_DRAWN = False
                     player.threshold = 0
                 
-                player.health += 5
+                player.health += 1
                 player.score += 1
                 if player.health >= 100:
                     player.health = 100
@@ -140,7 +142,7 @@ def game(character):
             if sediment.rect.colliderect(player.rect):
                 player.threshold = 0
                 
-                player.health -= 2
+                player.health -= deductPoints
                 if player.health <= 0:
                     player.health = 0
                 
@@ -178,9 +180,10 @@ def game(character):
             player.rect.x = 0
         elif player.rect.y <= SCREEN_HEIGHT - WATERBED_HEIGHT:
             player.rect.y = SCREEN_HEIGHT - WATERBED_HEIGHT
-            # player.health -= 1
-            # if player.health <= 0:
-            #     player.health = 0
+        
+        if player.health <= 0:
+            done= True
+         
         
         pygame.display.update()
         clock.tick(fps)

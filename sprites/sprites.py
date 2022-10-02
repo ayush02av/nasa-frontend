@@ -23,7 +23,7 @@ class Player(Sprite):
         super().__init__(self.pos)
         # self.vx = 2.5
         self.vy = 3
-        self.health = 50
+        self.health = 10
         self.score = 0
         self.threshold = 0
 
