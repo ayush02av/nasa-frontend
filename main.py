@@ -16,7 +16,7 @@ def start_the_game():
     import game
     game.game(character)
 
-menu = pygame_menu.Menu('Welcome', 400, 300, theme=pygame_menu.themes.THEME_BLUE)
+menu = pygame_menu.Menu('Delta Nemo', 600, 400, theme=pygame_menu.themes.THEME_BLUE)
 
 menu.add.selector('Character: ', [('Gold Fish', 0), ('Cat Fish', 1)], onchange=set_character)
 menu.add.button('Play', start_the_game)
